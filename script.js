@@ -8,11 +8,14 @@ let ts = document.getElementById('t_seconds')
 let bm = document.getElementById('b_minutes')
 let bs = document.getElementById('b_seconds')
 
+document.title = tm.innerText + ":" + ts.innerText; /* Title */
+
 let startTimer;
 
 /* Restart Timer */
 function restartStartTimer() {
     startTimer = undefined;
+    updateTitle()
 }
 
 /* Play Sound */
@@ -89,6 +92,7 @@ function timer() {
     }
 
     addZero(tm, ts);
+    updateTitle()
 }
 
 /* Add 0 for numbers < 10 */
@@ -104,4 +108,9 @@ function addZero(minutes, seconds) {
     } else if (seconds.innerText == 0) {
         seconds.innerText = "00";
     }
+}
+
+/* Update Title */
+function updateTitle() {
+    document.title = tm.innerText + ":" + ts.innerText;
 }
