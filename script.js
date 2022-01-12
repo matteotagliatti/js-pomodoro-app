@@ -10,8 +10,15 @@ let bs = document.getElementById('b_seconds')
 
 let startTimer;
 
+/* Restart Timer */
 function restartStartTimer() {
     startTimer = undefined;
+}
+
+/* Play Sound */
+
+function playSound() {
+    new Audio('audio/alarm.wav').play()
 }
 
 
@@ -40,10 +47,10 @@ reset.addEventListener('click', function () {
     restartStartTimer()
 })
 
-function resetValue() {
+function resetValue() { /* Sostituire valori con input utente */
     tm.innerText = 25;
     ts.innerText = "00";
-    bm.innerText = 5;
+    bm.innerText = "05";
     bs.innerText = "00";
 }
 
@@ -60,17 +67,41 @@ function timer() {
 
     /* Break Countdown */
     if (tm.innerText == 0 && ts.innerText == 0) {
+        if (bm.innerText == 0 && bs.innerText == 5) { /* Sostuire il 5 con l'imput dell'utente */
+            playSound();
+        }
+
         if (bs.innerText != 0) {
             bs.innerText--;
         } else if (bm.innerText != 0 && bs.innerText == 0) {
             bs.innerText = 59;
             bm.innerText--;
         }
+
+        addZero(bm, bs);
     }
 
     /* Incement Count at the end of one cycle */
     if (tm.innerText == 0 && ts.innerText == 0 && bm.innerText == 0 && bs.innerText == 0) {
         resetValue();
         counter.innerText++;
+        playSound();
+    }
+
+    addZero(tm, ts);
+}
+
+/* Add 0 for numbers < 10 */
+function addZero(minutes, seconds) {
+    if (minutes.innerText < 10 && minutes.innerText != 0) {
+        minutes.innerText = "0" + minutes.innerText
+    } else if (minutes.innerText == 0) {
+        minutes.innerText = "00"
+    }
+
+    if (seconds.innerText < 10 && seconds.innerText != 0) {
+        seconds.innerText = "0" + seconds.innerText;
+    } else if (seconds.innerText == 0) {
+        seconds.innerText = "00";
     }
 }
