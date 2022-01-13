@@ -2,11 +2,14 @@ const start = document.getElementById('start');
 const reset = document.getElementById('reset');
 const stop = document.getElementById('pause');
 const counter = document.getElementById('counter')
+const tnumber = document.getElementById('timerChange');
+const bnumber = document.getElementById('breakChange');
 
 let tm = document.getElementById('t_minutes')
 let ts = document.getElementById('t_seconds')
 let bm = document.getElementById('b_minutes')
 let bs = document.getElementById('b_seconds')
+
 
 document.title = tm.innerText + ":" + ts.innerText; /* Title */
 
@@ -50,10 +53,10 @@ reset.addEventListener('click', function () {
     restartStartTimer()
 })
 
-function resetValue() { /* Sostituire valori con input utente */
-    tm.innerText = 25;
+function resetValue() {
+    tm.innerText = tnumber.value;
     ts.innerText = "00";
-    bm.innerText = "05";
+    bm.innerText = bnumber.value;
     bs.innerText = "00";
 }
 
@@ -70,7 +73,7 @@ function timer() {
 
     /* Break Countdown */
     if (tm.innerText == 0 && ts.innerText == 0) {
-        if (bm.innerText == 0 && bs.innerText == 5) { /* Sostuire il 5 con l'imput dell'utente */
+        if (bm.innerText == tnumber.value) { /* Play sound when minutes come to 0 */
             playSound();
         }
 
@@ -95,14 +98,23 @@ function timer() {
     updateTitle()
 }
 
+
 /* Add 0 for numbers < 10 */
 function addZero(minutes, seconds) {
-    if (minutes.innerText < 10 && minutes.innerText != 0) {
-        minutes.innerText = "0" + minutes.innerText
-    } else if (minutes.innerText == 0) {
-        minutes.innerText = "00"
-    }
+    if (minutes == tm) { /* Add zero only for timer minutes and seconds */
+        if (minutes.innerText < 10 && minutes.innerText != 0) {
+            minutes.innerText = "0" + minutes.innerText
+        } else if (minutes.innerText == 0) {
+            minutes.innerText = "00"
+        }
+        addZeroSeconds(seconds)
 
+    } else { /* Add zero only for break seconds */
+        addZeroSeconds(seconds)
+    }
+}
+
+function addZeroSeconds(seconds) {
     if (seconds.innerText < 10 && seconds.innerText != 0) {
         seconds.innerText = "0" + seconds.innerText;
     } else if (seconds.innerText == 0) {
@@ -110,7 +122,26 @@ function addZero(minutes, seconds) {
     }
 }
 
+
 /* Update Title */
 function updateTitle() {
     document.title = tm.innerText + ":" + ts.innerText;
 }
+
+
+/* Input Number */
+tnumber.onchange = function () {
+    tm.innerText = this.value;
+}
+
+bnumber.onchange = function () {
+    bm.innerText = this.value;
+}
+
+
+/* Update minutes on window load */
+window.onload = () => {
+    tm.innerText = tnumber.value;
+    bm.innerText = bnumber.value;
+    updateTitle()
+};

@@ -15,7 +15,7 @@
     <!-- Timer + Buttons -->
     <div class="flex flex-col gap-5">
         <h1 class="text-9xl font-bold">
-            <span id="t_minutes">00</span><span>:</span><span id="t_seconds">10</span>
+            <span id="t_minutes"></span><span>:</span><span id="t_seconds">00</span>
         </h1>
         <div class="flex justify-center gap-10">
             <button id="start" class="bg-white/30 hover:bg-white/50 py-1 px-2 rounded-md shadow-md transition-all">Start</button>
@@ -26,10 +26,23 @@
     
     <!-- Break + Counter -->
     <div class="flex flex-col justify-center">
-        <p><strong>Break</strong>: <span id="b_minutes">00</span><span>:</span><span id="b_seconds">05</span></p>
+        <p><strong>Break</strong>: <span id="b_minutes"></span><span>:</span><span id="b_seconds">00</span></p>
         <p><strong>Counter</strong>: <span id="counter">0</span></p>
     </div>
+
+    <div class="flex justify-center gap-5">
+        <div>
+            <label for="timerChange" class="mr-1">Timer minutes:</label>
+            <input id="timerChange" class="w-14 bg-white/30 py-1 px-2 rounded-md shadow-md transition-all" type="number" min="1" max="60" step="1" value="25">
+        </div>
+        <div>
+            <label for="Breake minutes" class="mr-1">Break minutes:</label>
+            <input id="breakChange" class="w-14 bg-white/30 py-1 px-2 rounded-md shadow-md transition-all" type="number" min="1" max="30" step="1" value="5">
+        </div>
+        
+        
+    </div>
     
-    <script src="script.js"></script>
+    <script src="js/scirpt.js"></script>
 </body>
 </html>
