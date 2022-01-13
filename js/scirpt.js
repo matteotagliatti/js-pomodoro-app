@@ -132,6 +132,7 @@ function updateTitle() {
 /* Input Number */
 tnumber.onchange = function () {
     tm.innerText = this.value;
+    updateTitle()
 }
 
 bnumber.onchange = function () {
